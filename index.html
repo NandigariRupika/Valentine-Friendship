@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Our Beautiful Valentine 💖</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            background: linear-gradient(135deg, #ff6f91, #ff8fab, #ffc2d1);
+            color: white;
+            overflow: hidden;
+        }
+
+        h1 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 70px;
+            margin-top: 20px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        p {
+            font-size: 20px;
+            margin-bottom: 20px;
+            animation: fadeIn 3s ease-in-out;
+        }
+
+        .emoji-container {
+            margin-top: 30px;
+        }
+
+        .emoji {
+            font-size: 60px;
+            margin: 20px;
+            cursor: pointer;
+            transition: 0.4s;
+            display: inline-block;
+        }
+
+        .emoji:hover {
+            transform: scale(1.6) rotate(10deg);
+        }
+
+        /* POPUP */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .popup img {
+            width: 80%;
+            max-width: 600px;
+            border-radius: 25px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            animation: zoomIn 0.5s ease;
+        }
+
+        .close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            font-size: 40px;
+            cursor: pointer;
+        }
+
+        /* Secret Message */
+        .message {
+            display: none;
+            margin-top: 20px;
+            padding: 15px 25px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
+            font-size: 22px;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 12px;
+            background: #ff477e;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #ff0a54;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+
+        @keyframes zoomIn {
+            from {transform: scale(0.6);}
+            to {transform: scale(1);}
+        }
+
+    </style>
+</head>
+
+<body>
+
+<h1>Happy Valentine's Day 💖</h1>
+<p>Our Friendship Is My Favorite Blessing 🌹✨</p>
+
+<!-- Background Music -->
+<audio id="bgMusic" loop>
+    <source src="Demo/song.mp3" type="audio/mp3">
+</audio>
+
+<div class="emoji-container">
+    <span class="emoji" onclick="openPopup('Demo/photo1.jpg')">🌹</span>
+    <span class="emoji" onclick="openPopup('Demo/photo2.jpg')">💖</span>
+    <span class="emoji" onclick="openPopup('Demo/photo3.jpeg')">🥰</span>
+    <span class="emoji" onclick="openPopup('Demo/photo4.jpeg')">💐</span>
+</div>
+
+<button onclick="showMessage()">💌 Click for a Surprise</button>
+
+<div class="message" id="secretMessage">
+    You are not just my friend…  
+    You are my forever favorite person 💕🌹
+</div>
+
+<!-- Popup -->
+<div class="popup" id="popup">
+    <span class="close" onclick="closePopup()">×</span>
+    <img id="popupImg">
+</div>
+
+<canvas id="fireworks"></canvas>
+
+<script>
+
+// Start music when user clicks anywhere
+document.body.addEventListener("click", function() {
+    document.getElementById("bgMusic").play();
+}, { once: true });
+
+// Open popup
+function openPopup(src) {
+    document.getElementById("popupImg").src = src;
+    document.getElementById("popup").style.display = "flex";
+}
+
+// Close popup
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
+}
+
+// Secret message
+function showMessage() {
+    document.getElementById("secretMessage").style.display = "block";
+}
+
+// Fireworks
+const canvas = document.getElementById("fireworks");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+function random(min, max) {
+    return Math.random() * (max - min) + min;
+}
+
+function firework() {
+    let x = random(0, canvas.width);
+    let y = random(0, canvas.height / 2);
+
+    for (let i = 0; i < 40; i++) {
+        ctx.beginPath();
+        ctx.arc(x + random(-60,60), y + random(-60,60), 2, 0, Math.PI*2);
+        ctx.fillStyle = "white";
+        ctx.fill();
+    }
+}
+
+setInterval(() => {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    firework();
+}, 1200);
+
+</script>
+
+</body>
+</html>
